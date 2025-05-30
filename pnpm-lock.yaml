@@ -20,30 +20,27 @@ importers:
       '@fortawesome/fontawesome-free':
         specifier: ^6.7.2
         version: 6.7.2
-      svelte-awesome:
-        specifier: ^3.3.5
-        version: 3.3.5(svelte@5.33.10)
     devDependencies:
       '@sveltejs/adapter-auto':
-        specifier: ^6.0.0
+        specifier: ^6.0.1
         version: 6.0.1(@sveltejs/kit@2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.10)(vite@6.3.5(@types/node@22.15.3)))(svelte@5.33.10)(vite@6.3.5(@types/node@22.15.3)))
       '@sveltejs/kit':
-        specifier: ^2.16.0
+        specifier: ^2.21.1
         version: 2.21.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.33.10)(vite@6.3.5(@types/node@22.15.3)))(svelte@5.33.10)(vite@6.3.5(@types/node@22.15.3))
       '@sveltejs/vite-plugin-svelte':
-        specifier: ^5.0.0
+        specifier: ^5.0.3
         version: 5.0.3(svelte@5.33.10)(vite@6.3.5(@types/node@22.15.3))
       svelte:
-        specifier: ^5.0.0
+        specifier: ^5.33.10
         version: 5.33.10
       svelte-check:
-        specifier: ^4.0.0
-        version: 4.2.1(picomatch@4.0.2)(svelte@5.33.10)(typescript@5.8.2)
+        specifier: ^4.2.1
+        version: 4.2.1(picomatch@4.0.2)(svelte@5.33.10)(typescript@5.8.3)
       typescript:
-        specifier: ^5.0.0
-        version: 5.8.2
+        specifier: ^5.8.3
+        version: 5.8.3
       vite:
-        specifier: ^6.2.6
+        specifier: ^6.3.5
         version: 6.3.5(@types/node@22.15.3)
 
   apps/websocket: {}
@@ -506,11 +503,6 @@ packages:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
 
-  svelte-awesome@3.3.5:
-    resolution: {integrity: sha512-RIi+OI6CEn+fTdYy7UOgImEUWvdQSwP9SiMC44UKyFO+8+gjj+NgTG67hI8j2rTHQVvCP820Uj+4UoZG8CCUfA==}
-    peerDependencies:
-      svelte: '>= 3.43.1 < 6'
-
   svelte-check@4.2.1:
     resolution: {integrity: sha512-e49SU1RStvQhoipkQ/aonDhHnG3qxHSBtNfBRb9pxVXoa+N7qybAo32KgA9wEb2PCYFNaDg7bZCdhLD1vHpdYA==}
     engines: {node: '>= 18.0.0'}
@@ -565,8 +557,8 @@ packages:
     resolution: {integrity: sha512-iHuaNcq5GZZnr3XDZNuu2LSyCzAOPwDuo5Qt+q64DfsTP1i3T2bKfxJhni2ZQxsvAoxRbuUK5QetJki4qc5aYA==}
     hasBin: true
 
-  typescript@5.8.2:
-    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -981,11 +973,7 @@ snapshots:
 
   source-map-js@1.2.1: {}
 
-  svelte-awesome@3.3.5(svelte@5.33.10):
-    dependencies:
-      svelte: 5.33.10
-
-  svelte-check@4.2.1(picomatch@4.0.2)(svelte@5.33.10)(typescript@5.8.2):
+  svelte-check@4.2.1(picomatch@4.0.2)(svelte@5.33.10)(typescript@5.8.3):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       chokidar: 4.0.3
@@ -993,7 +981,7 @@ snapshots:
       picocolors: 1.1.1
       sade: 1.8.1
       svelte: 5.33.10
-      typescript: 5.8.2
+      typescript: 5.8.3
     transitivePeerDependencies:
       - picomatch
 
@@ -1048,7 +1036,7 @@ snapshots:
       turbo-windows-64: 2.5.3
       turbo-windows-arm64: 2.5.3
 
-  typescript@5.8.2: {}
+  typescript@5.8.3: {}
 
   undici-types@6.21.0:
     optional: true
