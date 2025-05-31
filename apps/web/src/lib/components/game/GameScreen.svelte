@@ -1,6 +1,6 @@
 <script>
-    import MenuBar from "./MenuBar.svelte";
-    import UserList from "./UserList.svelte";
+    import * as MenuBar from "./menuBar";
+    import * as UserList from "./userList";
 
 </script>
 
@@ -21,8 +21,8 @@
 </style>
 
 <div class="game-container">
-    <MenuBar />
+    <MenuBar.Root />
     <div class="game-screen">
-        <UserList />
+        <UserList.Root />
     </div>
 </div>
