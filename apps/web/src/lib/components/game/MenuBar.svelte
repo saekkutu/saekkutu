@@ -5,8 +5,7 @@
 
 <style>
     .menu-bar {
-        float: left;
-        width: 1010px;
+        width: 100%;
         height: 30px;
     }
 </style>
