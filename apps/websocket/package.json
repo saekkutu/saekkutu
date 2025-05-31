@@ -1,7 +1,14 @@
 {
   "name": "@saekkutu/websocket",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "build": "cargo build --release",
-    "dev": "cargo run"
+    "dev": "bun run src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }
