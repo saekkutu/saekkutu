@@ -4,4 +4,12 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-tokio-tungstenite = "0.26.2"
+tokio-tungstenite.workspace = true
+dotenvy.workspace = true
+futures-channel.workspace = true
+tokio = { workspace = true, features = ["full"]}
+futures-util.workspace = true
+prost.workspace = true
+
+[build-dependencies]
+prost-build.workspace = true

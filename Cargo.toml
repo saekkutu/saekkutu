@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = [
+    "apps/websocket"
+]
+
+[workspace.dependencies]
+tokio-tungstenite = "0.26.2"
+dotenvy = "0.15.7"
+futures-channel = "0.3.31"
+tokio = "1.45.1"
+futures-util = "0.3.31"
+prost = "0.13.5"
+prost-build = "0.13.5"

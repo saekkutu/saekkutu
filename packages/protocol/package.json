@@ -1,0 +1,11 @@
+{
+    "name": "@saekkutu/protocol",
+    "main": "src/index.ts",
+    "scripts": {
+        "dev": "bun run --watch build.ts",
+        "build": "bun run build.ts"
+    },
+    "dependencies": {
+        "protobufjs": "^7.5.3"
+    }
+}

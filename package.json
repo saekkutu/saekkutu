@@ -14,7 +14,8 @@
     "turbo": "^2.5.3"
   },
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "packageManager": "bun@1.2.15"
 }

@@ -1,7 +1,10 @@
 <script>
     import * as MenuBar from "./menuBar";
     import * as UserList from "./userList";
+    import Client from "$lib/client";
 
+    let client = new Client();
+    client.connect();
 </script>
 
 <style>
