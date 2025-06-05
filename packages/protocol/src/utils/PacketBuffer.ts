@@ -8,7 +8,7 @@ export class PacketBuffer {
 
     constructor(buffer: Uint8Array) {
         this.buffer = buffer;
-        this.offset =  0;
+        this.offset = 0;
     }
 
     // Lazy init
@@ -34,45 +34,41 @@ export class PacketBuffer {
     }
 
     public readUint8(): number {
-        const value = this.buffer[this.offset];
-        this.offset += 1;
-        return value;
+        return this.buffer[this.offset++];
     }
 
     public writeUint8(value: number) {
         this.ensureCapacity(1);
-        this.buffer[this.offset] = value;
-        this.offset += 1;
+        this.buffer[this.offset++] = value;
     }
 
     public readUint32(): number {
-        const value = this.buffer.slice(this.offset, this.offset + 4)
-            .reduce((acc, byte, index) => acc + byte * (256 ** (3 - index)), 0)
+        const value = (this.buffer[this.offset] << 24) |
+                     (this.buffer[this.offset + 1] << 16) |
+                     (this.buffer[this.offset + 2] << 8) |
+                     this.buffer[this.offset + 3];
         this.offset += 4;
-        return value;
+        return value >>> 0; // Convert to unsigned
     }
 
     public writeUint32(value: number) {
         if (value < 0 || value > 0xFFFFFFFF) throw new Error("Value must be between 0 and 0xFFFFFFFF");
 
         this.ensureCapacity(4);
-        this.buffer.set([
-            (value >> 24) & 0xFF,
-            (value >> 16) & 0xFF,
-            (value >> 8) & 0xFF,
-            value & 0xFF,
-        ], this.offset);
-        this.offset += 4;
+        this.buffer[this.offset++] = (value >> 24) & 0xFF;
+        this.buffer[this.offset++] = (value >> 16) & 0xFF;
+        this.buffer[this.offset++] = (value >> 8) & 0xFF;
+        this.buffer[this.offset++] = value & 0xFF;
     }
 
     public readInt32(): number {
         const value = this.readUint32();
-        return value >= 0x80000000 ? value - 0x100000000 : value; // Sign extension
+        return value >= 0x80000000 ? value - 0x100000000 : value;
     }
 
     public writeInt32(value: number) {
-        if (value < -Number.MAX_SAFE_INTEGER || value > Number.MAX_SAFE_INTEGER) throw new Error("Value must be between -2^31 and 2^31-1");
-        this.writeUint32(value >>> 0); // Only the read method is different
+        if (value < -0x80000000 || value > 0x7FFFFFFF) throw new Error("Value must be between -2^31 and 2^31-1");
+        this.writeUint32(value >>> 0);
     }
 
     public readString(): string {
@@ -86,9 +82,9 @@ export class PacketBuffer {
         const bytes = this.textEncoder.encode(value);
         const length = bytes.length;
 
-        this.writeUint32(bytes.length); // Length cannot be negative
-        this.ensureCapacity(length)
+        this.writeUint32(length);
+        this.ensureCapacity(length);
         this.buffer.set(bytes, this.offset);
-        this.offset += bytes.length;
+        this.offset += length;
     }
 }
