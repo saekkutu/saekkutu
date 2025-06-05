@@ -1,0 +1,27 @@
+{
+	"name": "@saekkutu/web",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "bunx --bun vite dev",
+		"build": "bunx --bun vite build",
+		"preview": "bunx --bun vite preview",
+		"prepare": "bunx --bun svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^6.0.1",
+		"@sveltejs/kit": "^2.21.1",
+		"@sveltejs/vite-plugin-svelte": "^5.0.3",
+		"svelte": "^5.33.10",
+		"svelte-check": "^4.2.1",
+		"typescript": "^5.8.3",
+		"vite": "^6.3.5"
+	},
+	"dependencies": {
+		"@saekkutu/protocol": "workspace:*",
+		"@fortawesome/fontawesome-free": "^6.7.2",
+		"protobufjs": "^7.5.3"
+	}
+}

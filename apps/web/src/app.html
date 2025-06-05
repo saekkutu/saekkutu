@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<style>
+			@font-face {
+				font-family: 'NanumBarunGothic';
+				src: url('/fonts/NanumBarunGothic.woff2');
+			}
+
+			body {
+				font-family: 'NanumBarunGothic';
+			}
+
+			.fas {
+				font-weight: 900;
+				font-size: 0.9em;
+			}
+		</style>
+
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>
