@@ -1,8 +1,21 @@
-<script>
-    import GameScreen from "$lib/components/game/GameScreen.svelte";
+<script lang="ts">
+    import * as UserList from "$lib/components/game/userList";
+    import * as Chat from "$lib/components/game/chat";
+    import MyInfo from "$lib/components/game/MyInfo.svelte";
+    import { currentUser } from "$lib/stores/users";
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<style>
+    .game-screen-content {
+        display: flex;
+        flex-direction: row;
+    }
+</style>
 
-<GameScreen />
+<div class="game-screen-content">
+    <UserList.Root />
+</div>
+<div class="game-screen-content">
+    <MyInfo user={$currentUser} />
+    <Chat.Root />
+</div>

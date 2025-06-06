@@ -1,12 +1,19 @@
 {
   "name": "@saekkutu/protocol",
-  "module": "index.ts",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "dev": "bun run watch.ts",
+    "build": "bun run build.ts"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "chokidar": "^4.0.3"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   }
 }

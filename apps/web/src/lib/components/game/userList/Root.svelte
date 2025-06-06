@@ -1,12 +1,13 @@
 <script>
     import * as TitleBar from "../titleBar";
     import { Item } from ".";
+    import { users } from "$lib/stores/users";
 </script>
 
 <style>
     .user-list {
         width: 210px;
-        height: 360px;
+        height: 370px;
 
         border-radius: 0px;
         color: #111111;
@@ -28,7 +29,7 @@
         <TitleBar.Title>
             <i class="fas fa-users" style="margin-right: 5px;"></i>
             {"<"}<b>감자</b>{">"} 
-            접속자 목록 [69명]
+            접속자 목록 [{$users.length}명]
         </TitleBar.Title>
 
         <TitleBar.Button rightSide>
@@ -38,58 +39,8 @@
     </TitleBar.Root>
 
     <div class="user-list-content">
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
-        <Item>asdcasdc</Item>
+        {#each $users as user}
+            <Item>{user.username}</Item>
+        {/each}
     </div>
 </div>
