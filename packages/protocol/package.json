@@ -10,12 +10,10 @@
     "build": "bun run build.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "chokidar": "^4.0.3"
   },
   "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "chokidar": "^4.0.3"
+    "typescript": "^5.8.3"
   }
 }
