@@ -14,5 +14,8 @@
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3"
   }
 }

@@ -8,4 +8,4 @@ Bun.build({
     outdir: "dist"
 })
 
-await $`tsc`
+await $`bun tsc`

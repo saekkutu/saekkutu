@@ -1,10 +1,16 @@
 import { $ } from "bun";
-import { watch } from "fs";
+import chokidar from "chokidar";
 
-await $`bun run build.ts`
-watch("src", async (event, _filename) => {
-    if (event !== "change") return;
-
+async function build() {
     console.log(`Building...`);
-    await $`bun run build.ts`
-});
+    
+    try {
+        await $`bun run build.ts`
+        console.log(`Built successfully`);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+chokidar.watch("src")
+    .on("all", build)
