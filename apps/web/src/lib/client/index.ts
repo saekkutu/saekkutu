@@ -16,21 +16,14 @@ export class Client {
 
     public connect() {
         this.ws = new WebSocket(this.config.url);
+        this.ws.binaryType = "arraybuffer";
 
         this.ws.addEventListener("open", async () => {
             this.send(PacketType.Ping, new PacketPing());
         });
         
         this.ws.addEventListener("message", (event) => {
-            if (event.data instanceof Blob) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    this.packetRegistry.handleBuffer(this, new Uint8Array(reader.result as ArrayBuffer));
-                };
-                reader.readAsArrayBuffer(event.data);
-            } else {
-                this.packetRegistry.handleBuffer(this, new Uint8Array(event.data));
-            }
+            this.packetRegistry.handleBuffer(this, new Uint8Array(event.data));
         });
     }
     

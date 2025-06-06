@@ -1,6 +1,7 @@
 import { ServerWebSocket } from "bun";
 import { Packet, PacketBuffer, PacketPong, PacketRegistry, PacketType } from "@saekkutu/protocol";
 import { randomUUID } from "crypto";
+import { Connection } from "./connection";
 
 export interface ServerConfig {
     port: number;
@@ -9,8 +10,8 @@ export interface ServerConfig {
 export class Server {
     public config: ServerConfig;
     public wsServer?: Bun.Server;
-    private packetRegistry: PacketRegistry<ServerWebSocket<string>> = new PacketRegistry();
-    private connections: Map<string, undefined> = new Map();
+    private packetRegistry: PacketRegistry<string> = new PacketRegistry();
+    private connections: Map<string, Connection> = new Map();
 
     constructor(config: ServerConfig = { port: 3000 }) {
         this.config = config;
@@ -18,9 +19,10 @@ export class Server {
     }
 
     private setupPacketHandlers() {
-        this.packetRegistry.register(PacketType.Ping, (ws, _packet) => {
-            console.log(`Ping received from ${ws.data}`);
-            this.send(ws, PacketType.Pong, new PacketPong());
+        this.packetRegistry.register(PacketType.Ping, (connectionId, _packet) => {
+            console.log(`Ping received from ${connectionId}`);
+            console.log(`IP: ${this.connections.get(connectionId)?.address?.address}`);
+            this.send(connectionId, PacketType.Pong, new PacketPong());
         });
     }
 
@@ -30,7 +32,7 @@ export class Server {
             fetch: this.onFetch.bind(this),
             websocket: {
                 message: this.onMessage.bind(this),
-                open(_ws) {},
+                open: this.onOpen.bind(this),
                 close: this.onClose.bind(this),
                 drain(_ws) {},
             }
@@ -38,12 +40,19 @@ export class Server {
     }
 
     private onFetch(req: Request, server: Bun.Server) {
-        const connectionId = randomUUID();
-        this.connections.set(connectionId, undefined);
-        
+        const ip = server.requestIP(req);
+        if (!ip) return Response.json({ error: "IP not found" }, { status: 400 });
+
+        const connection = new Connection(this, randomUUID(), ip);
+        this.connections.set(connection.id, connection);
+
         server.upgrade(req, {
-            data: connectionId
+            data: connection.id
         });
+    }
+
+    private onOpen(ws: ServerWebSocket<string>) {
+        ws.subscribe(ws.data);
     }
 
     private onMessage(ws: ServerWebSocket<string>, message: string | Buffer) {
@@ -52,17 +61,16 @@ export class Server {
             return;
         }
 
-        this.packetRegistry.handleBuffer(ws, new Uint8Array(message));
+        this.packetRegistry.handleBuffer(ws.data, new Uint8Array(message));
     }
 
-    private onClose(ws: ServerWebSocket<string>, _code: number, _message: string) {
-        this.connections.delete(ws.data);
+    private onClose(_ws: ServerWebSocket<string>, _code: number, _message: string) {
     }
 
-    public send(ws: ServerWebSocket<string>, type: PacketType, packet: Packet) {
+    public send(connectionId: string, type: PacketType, packet: Packet) {
         const buffer = new PacketBuffer(new Uint8Array());
         buffer.writeUint8(type);
         packet.write(buffer);
-        ws.send(buffer.buffer);
+        this.wsServer?.publish(connectionId, buffer.buffer);
     }
 }
