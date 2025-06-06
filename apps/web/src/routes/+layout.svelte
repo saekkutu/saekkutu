@@ -7,7 +7,7 @@
 
     let client: Client;
     onMount(() => {
-        client = new Client({ url: "ws://localhost:3000" });
+        client = new Client({ url: "ws://localhost:3000", heartbeatInterval: 2000 });
         client.connect();
     });
 </script>

@@ -1,20 +1,42 @@
-import { Packet, PacketType } from "@saekkutu/protocol";
+import { Packet, PacketBuffer, PacketType } from "@saekkutu/protocol";
 import { Server } from "./server";
-import { SocketAddress } from "bun";
+import { ServerWebSocket } from "bun";
+import { User } from "./user";
 
 export class Connection {
-    public server: Server;
+    public readonly server: Server;
+    public readonly ws: ServerWebSocket<string>;
 
-    public id: string;
-    public address: SocketAddress
+    public user?: User;
 
-    constructor(server: Server, id: string, address: SocketAddress) {
+    private lastPingTime: number;
+
+    constructor(server: Server, ws: ServerWebSocket<string>) {
         this.server = server;
-        this.id = id;
-        this.address = address;
+        this.ws = ws;
+        this.lastPingTime = Date.now();
     }
 
     public send(type: PacketType, packet: Packet) {
-        this.server.send(this.id, type, packet);
+        const buffer = new PacketBuffer(new Uint8Array());
+        buffer.writeUint8(type);
+        packet.write(buffer);
+        this.ws.send(buffer.buffer);
+    }
+
+    public close() {
+        this.ws.close();
+    }
+
+    public setUser(user: User) {
+        this.user = user;
+    }
+
+    public updateLastPingTime() {
+        this.lastPingTime = Date.now();
+    }
+
+    public getLastPingTime(): number {
+        return this.lastPingTime;
     }
 }

@@ -1,29 +1,31 @@
 import { ServerWebSocket } from "bun";
-import { Packet, PacketBuffer, PacketPong, PacketRegistry, PacketType } from "@saekkutu/protocol";
+import { PacketRegistry, PacketType } from "@saekkutu/protocol";
 import { randomUUID } from "crypto";
 import { Connection } from "./connection";
+import { PingHandler } from "./handlers";
 
 export interface ServerConfig {
     port: number;
+    heartbeatInterval: number;
 }
 
 export class Server {
-    public config: ServerConfig;
-    public wsServer?: Bun.Server;
-    private packetRegistry: PacketRegistry<string> = new PacketRegistry();
-    private connections: Map<string, Connection> = new Map();
+    public readonly config: ServerConfig;
+    
+    private readonly packetRegistry: PacketRegistry<Connection> = new PacketRegistry();
+    private readonly connections: Map<string, Connection> = new Map();
 
-    constructor(config: ServerConfig = { port: 3000 }) {
-        this.config = config;
+    public wsServer?: Bun.Server;
+
+    constructor(config: ServerConfig = { port: 3000, heartbeatInterval: 2000 }) {
+        this.config = {
+            ...config,
+        };
         this.setupPacketHandlers();
     }
 
     private setupPacketHandlers() {
-        this.packetRegistry.register(PacketType.Ping, (connectionId, _packet) => {
-            console.log(`Ping received from ${connectionId}`);
-            console.log(`IP: ${this.connections.get(connectionId)?.address?.address}`);
-            this.send(connectionId, PacketType.Pong, new PacketPong());
-        });
+        this.packetRegistry.register(PacketType.Ping, PingHandler.handle);
     }
 
     public serve() {
@@ -37,22 +39,32 @@ export class Server {
                 drain(_ws) {},
             }
         });
+
+        this.startHeartbeatCheck();
+    }
+
+    private startHeartbeatCheck() {
+        setInterval(() => {
+            const now = Date.now();
+            for (const [connectionId, connection] of this.connections) {
+                const lastPing = connection.getLastPingTime();
+                if (now - lastPing <= this.config.heartbeatInterval * 5) continue;
+                
+                console.warn(`Connection ${connectionId} timed out (no ping for ${(now - lastPing) / 1000}s)`);
+                connection.close();
+            }
+        }, this.config.heartbeatInterval);
     }
 
     private onFetch(req: Request, server: Bun.Server) {
-        const ip = server.requestIP(req);
-        if (!ip) return Response.json({ error: "IP not found" }, { status: 400 });
-
-        const connection = new Connection(this, randomUUID(), ip);
-        this.connections.set(connection.id, connection);
-
         server.upgrade(req, {
-            data: connection.id
+            data: randomUUID()
         });
     }
 
     private onOpen(ws: ServerWebSocket<string>) {
-        ws.subscribe(ws.data);
+        const connection = new Connection(this, ws);
+        this.connections.set(ws.data, connection);
     }
 
     private onMessage(ws: ServerWebSocket<string>, message: string | Buffer) {
@@ -61,16 +73,17 @@ export class Server {
             return;
         }
 
-        this.packetRegistry.handleBuffer(ws.data, new Uint8Array(message));
+        const connection = this.connections.get(ws.data);
+        if (!connection) {
+            console.warn("Received message from unknown connection");
+            ws.close(1000, "Unknown connection");
+            return;
+        }
+
+        this.packetRegistry.handleBuffer(connection, new Uint8Array(message));
     }
 
-    private onClose(_ws: ServerWebSocket<string>, _code: number, _message: string) {
-    }
-
-    public send(connectionId: string, type: PacketType, packet: Packet) {
-        const buffer = new PacketBuffer(new Uint8Array());
-        buffer.writeUint8(type);
-        packet.write(buffer);
-        this.wsServer?.publish(connectionId, buffer.buffer);
+    private onClose(ws: ServerWebSocket<string>, _code: number, _message: string) {
+        this.connections.delete(ws.data);
     }
 }
