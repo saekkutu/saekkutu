@@ -1,8 +1,7 @@
-import { ServerWebSocket } from "bun";
-import { PacketRegistry, PacketType } from "@saekkutu/protocol";
-import { randomUUID } from "crypto";
+import { randomUUIDv7, ServerWebSocket } from "bun";
+import { PacketRegistry, PacketType, PacketUserInfoRemove } from "@saekkutu/protocol";
 import { Connection } from "./connection";
-import { PingHandler } from "./handlers";
+import { LoginHandler, PingHandler } from "./handlers";
 
 export interface ServerConfig {
     port: number;
@@ -11,11 +10,11 @@ export interface ServerConfig {
 
 export class Server {
     public readonly config: ServerConfig;
-    
-    private readonly packetRegistry: PacketRegistry<Connection> = new PacketRegistry();
-    private readonly connections: Map<string, Connection> = new Map();
 
     public wsServer?: Bun.Server;
+    public readonly connections: Map<string, Connection> = new Map();
+
+    private readonly packetRegistry: PacketRegistry<Connection> = new PacketRegistry();
 
     constructor(config: ServerConfig = { port: 3000, heartbeatInterval: 2000 }) {
         this.config = {
@@ -26,6 +25,7 @@ export class Server {
 
     private setupPacketHandlers() {
         this.packetRegistry.register(PacketType.Ping, PingHandler.handle);
+        this.packetRegistry.register(PacketType.Login, LoginHandler.handle);
     }
 
     public serve() {
@@ -58,7 +58,7 @@ export class Server {
 
     private onFetch(req: Request, server: Bun.Server) {
         server.upgrade(req, {
-            data: randomUUID()
+            data: randomUUIDv7()
         });
     }
 
@@ -84,6 +84,24 @@ export class Server {
     }
 
     private onClose(ws: ServerWebSocket<string>, _code: number, _message: string) {
+        const connection = this.connections.get(ws.data);
+        if (!connection) {
+            console.warn("Received close event from unknown connection");
+            return;
+        }
+
+        if (connection.user) {
+            const removePacket = new PacketUserInfoRemove();
+            removePacket.id = connection.user.id;
+
+            for (const otherConnection of this.connections.values()) {
+                if (otherConnection.user?.id === connection.user.id) continue;
+                if (!otherConnection.user) continue;
+
+                otherConnection.send(PacketType.UserInfoRemove, removePacket);
+            }
+        }
+
         this.connections.delete(ws.data);
     }
 }

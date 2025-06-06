@@ -2,5 +2,8 @@ export enum PacketType {
     Ping,
     Pong,
     Login,
-    Ready
+    Ready,
+
+    UserInfoUpdate,
+    UserInfoRemove
 }

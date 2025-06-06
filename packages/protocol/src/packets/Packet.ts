@@ -1,4 +1,4 @@
-import { PacketBuffer } from "../utils";
+import { PacketBuffer } from "..";
 
 export interface Packet {
     read(buffer: PacketBuffer): void;

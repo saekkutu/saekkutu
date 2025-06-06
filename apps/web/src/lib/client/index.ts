@@ -1,4 +1,5 @@
-import { PacketBuffer, PacketPing, PacketRegistry, PacketType, type Packet } from "@saekkutu/protocol";
+import { PacketBuffer, PacketLogin, PacketPing, PacketRegistry, PacketType, type Packet, PacketUserInfoUpdate, PacketReady } from "@saekkutu/protocol";
+import { addUser, clearUsers, removeUser } from "../stores/users";
 
 export interface ClientConfig {
     url: string;
@@ -12,7 +13,7 @@ export class Client {
 
     private heartbeatInterval?: NodeJS.Timeout;
     private lastPongTime: number = 0;
-
+    
     constructor(config: ClientConfig) {
         this.config = config;
         this.registerHandlers();
@@ -24,6 +25,7 @@ export class Client {
 
         this.ws.addEventListener("open", async () => {
             this.startHeartbeat();
+            this.login("test");
         });
         
         this.ws.addEventListener("message", (event) => {
@@ -32,6 +34,7 @@ export class Client {
     }
 
     public disconnect() {
+        clearUsers();
         this.ws?.close();
         this.heartbeatInterval && clearInterval(this.heartbeatInterval);
     }
@@ -39,6 +42,27 @@ export class Client {
     public registerHandlers() {
         this.packetRegistry.register(PacketType.Pong, (_client: Client, _packet: Packet) => {
             this.lastPongTime = Date.now();
+        });
+
+        this.packetRegistry.register(PacketType.Ready, (_client: Client, packet: Packet) => {
+            const readyPacket = packet as PacketReady;
+            if (!readyPacket.id || !readyPacket.username) return;
+            
+            addUser({ id: readyPacket.id, username: readyPacket.username });
+        });
+
+        this.packetRegistry.register(PacketType.UserInfoUpdate, (_client: Client, packet: Packet) => {
+            const userInfoPacket = packet as PacketUserInfoUpdate;
+            if (!userInfoPacket.id || !userInfoPacket.username) return;
+            
+            addUser({ id: userInfoPacket.id, username: userInfoPacket.username });
+        });
+
+        this.packetRegistry.register(PacketType.UserInfoRemove, (_client: Client, packet: Packet) => {
+            const userInfoPacket = packet as PacketUserInfoUpdate;
+            if (!userInfoPacket.id) return;
+            
+            removeUser(userInfoPacket.id);
         });
     }
 
@@ -55,8 +79,9 @@ export class Client {
         this.send(PacketType.Ping, new PacketPing());
         
         this.heartbeatInterval = setInterval(() => {
-            if (Date.now() - this.lastPongTime > this.config.heartbeatInterval * 2) {
-                console.log("Heartbeat timeout");
+            const timeSinceLastPong = Date.now() - this.lastPongTime;
+            if (timeSinceLastPong > this.config.heartbeatInterval * 2) {
+                console.log(`Heartbeat timeout: ${timeSinceLastPong}ms`);
                 this.disconnect();
                 this.connect();
                 return;
@@ -64,5 +89,11 @@ export class Client {
             
             this.send(PacketType.Ping, new PacketPing());
         }, this.config.heartbeatInterval);
+    }
+
+    public login(username: string) {
+        const packet = new PacketLogin();
+        packet.username = username;
+        this.send(PacketType.Login, packet);
     }
 }

@@ -4,6 +4,7 @@ import { ServerWebSocket } from "bun";
 import { User } from "./user";
 
 export class Connection {
+    public readonly id: string;
     public readonly server: Server;
     public readonly ws: ServerWebSocket<string>;
 
@@ -12,6 +13,7 @@ export class Connection {
     private lastPingTime: number;
 
     constructor(server: Server, ws: ServerWebSocket<string>) {
+        this.id = ws.data;
         this.server = server;
         this.ws = ws;
         this.lastPingTime = Date.now();
@@ -25,7 +27,7 @@ export class Connection {
     }
 
     public close() {
-        this.ws.close();
+        this.ws.terminate();
     }
 
     public setUser(user: User) {
