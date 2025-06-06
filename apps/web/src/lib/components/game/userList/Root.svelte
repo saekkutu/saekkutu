@@ -7,7 +7,7 @@
 <style>
     .user-list {
         width: 210px;
-        height: 360px;
+        height: 370px;
 
         border-radius: 0px;
         color: #111111;

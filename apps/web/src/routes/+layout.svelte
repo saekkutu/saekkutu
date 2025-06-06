@@ -1,13 +1,14 @@
 <script lang="ts">
     import * as MenuBar from "$lib/components/game/menuBar";
     import { Client } from "$lib/client";
-    import { onMount } from "svelte";
+    import { onMount, setContext } from "svelte";
 
     let { children } = $props();
 
-    let client: Client;
+    const client = new Client({ url: "ws://localhost:3000", heartbeatInterval: 2000 });
+    setContext("client", client);
+
     onMount(() => {
-        client = new Client({ url: "ws://localhost:3000", heartbeatInterval: 2000 });
         client.connect();
     });
 </script>
@@ -23,8 +24,7 @@
         width: 1010px;
 
         display: flex;
-        flex: 1 auto;
-        position: relative;
+        flex-direction: column;
     }
 </style>
 

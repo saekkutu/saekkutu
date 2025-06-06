@@ -1,7 +1,7 @@
 import { randomUUIDv7, ServerWebSocket } from "bun";
 import { PacketRegistry, PacketType, PacketUserInfoRemove } from "@saekkutu/protocol";
 import { Connection } from "./connection";
-import { LoginHandler, PingHandler } from "./handlers";
+import { ChatMessageHandler, LoginHandler, PingHandler } from "./handlers";
 
 export interface ServerConfig {
     port: number;
@@ -26,6 +26,7 @@ export class Server {
     private setupPacketHandlers() {
         this.packetRegistry.register(PacketType.Ping, PingHandler.handle);
         this.packetRegistry.register(PacketType.Login, LoginHandler.handle);
+        this.packetRegistry.register(PacketType.ChatMessage, ChatMessageHandler.handle);
     }
 
     public serve() {

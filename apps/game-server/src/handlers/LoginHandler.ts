@@ -8,16 +8,16 @@ export class LoginHandler {
         if (!packet.username) throw new Error("Username is not set");
 
         const randomId = randomInt(1, 1000000);
-        connection.user = new User(randomId, packet.username);
+        connection.user = new User(randomId, `Unknown${randomId}`);
 
         const readyPacket = new PacketReady();
-        readyPacket.id = randomId;
-        readyPacket.username = packet.username;
+        readyPacket.id = connection.user.id;
+        readyPacket.username = connection.user.name;
         connection.send(PacketType.Ready, readyPacket);
 
         const updatePacket = new PacketUserInfoUpdate();
         updatePacket.id = connection.user.id;
-        updatePacket.username = packet.username;
+        updatePacket.username = connection.user.name;
 
         const otherConnections = Array.from(connection.server.connections.values());
         for (const otherConnection of otherConnections) {

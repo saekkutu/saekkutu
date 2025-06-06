@@ -6,3 +6,5 @@ export * from "./PacketLogin";
 export * from "./PacketReady";
 export * from "./PacketUserInfoUpdate";
 export * from "./PacketUserInfoRemove";
+export * from "./PacketChatMessage";
+export * from "./PacketChatBroadcast";

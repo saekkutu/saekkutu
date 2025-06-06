@@ -1,4 +1,8 @@
-import { Packet, PacketPing, PacketPong, PacketType, PacketBuffer, PacketLogin, PacketReady, PacketUserInfoUpdate, PacketUserInfoRemove } from "..";
+import { Packet, PacketBuffer,
+    PacketPing, PacketPong, PacketType,
+    PacketLogin, PacketReady,PacketUserInfoUpdate,
+    PacketUserInfoRemove, PacketChatMessage, PacketChatBroadcast
+} from "..";
 
 export type PacketHandler<T> = (something: T, packet: Packet) => void;
 export class PacketRegistry<T> {
@@ -52,6 +56,10 @@ export class PacketRegistry<T> {
                 return new PacketUserInfoUpdate();
             case PacketType.UserInfoRemove:
                 return new PacketUserInfoRemove();
+            case PacketType.ChatMessage:
+                return new PacketChatMessage();
+            case PacketType.ChatBroadcast:
+                return new PacketChatBroadcast();
             default:
                 return null;
         }

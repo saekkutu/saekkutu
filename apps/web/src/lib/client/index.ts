@@ -1,5 +1,7 @@
-import { PacketBuffer, PacketLogin, PacketPing, PacketRegistry, PacketType, type Packet, PacketUserInfoUpdate, PacketReady } from "@saekkutu/protocol";
-import { addUser, clearUsers, removeUser } from "../stores/users";
+import { PacketBuffer, PacketLogin, PacketPing, PacketRegistry, PacketType, type Packet, PacketUserInfoUpdate, PacketReady, PacketChatBroadcast } from "@saekkutu/protocol";
+import { addUser, clearUsers, removeUser, users } from "$lib/stores/users";
+import { addChat } from "$lib/stores/chat";
+import { get } from "svelte/store";
 
 export interface ClientConfig {
     url: string;
@@ -48,14 +50,14 @@ export class Client {
             const readyPacket = packet as PacketReady;
             if (!readyPacket.id || !readyPacket.username) return;
             
-            addUser({ id: readyPacket.id, username: readyPacket.username });
+            addUser({ id: readyPacket.id, username: readyPacket.username, isMe: true });
         });
 
         this.packetRegistry.register(PacketType.UserInfoUpdate, (_client: Client, packet: Packet) => {
             const userInfoPacket = packet as PacketUserInfoUpdate;
             if (!userInfoPacket.id || !userInfoPacket.username) return;
             
-            addUser({ id: userInfoPacket.id, username: userInfoPacket.username });
+            addUser({ id: userInfoPacket.id, username: userInfoPacket.username, isMe: false });
         });
 
         this.packetRegistry.register(PacketType.UserInfoRemove, (_client: Client, packet: Packet) => {
@@ -63,6 +65,16 @@ export class Client {
             if (!userInfoPacket.id) return;
             
             removeUser(userInfoPacket.id);
+        });
+
+        this.packetRegistry.register(PacketType.ChatBroadcast, (_client: Client, packet: Packet) => {
+            const chatBroadcastPacket = packet as PacketChatBroadcast;
+            if (!chatBroadcastPacket.id || !chatBroadcastPacket.message) return;
+            
+            const head = get(users).find(user => user.id === chatBroadcastPacket.id)?.username || "Unknown";
+            const time = new Date().toLocaleTimeString();
+
+            addChat({ head: head, body: chatBroadcastPacket.message, time: time });
         });
     }
 
