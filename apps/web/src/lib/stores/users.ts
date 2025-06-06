@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 
 export interface User {
     id: number;
@@ -24,3 +24,5 @@ export const removeUser = (id: number) => {
 export const clearUsers = () => {
     users.set([]);
 };
+
+export const currentUser = derived(users, $users => $users.find(u => u.isMe));

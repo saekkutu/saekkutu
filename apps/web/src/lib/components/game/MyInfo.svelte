@@ -1,8 +1,7 @@
 <script lang="ts">
     import * as TitleBar from "$lib/components/game/titleBar";
-    import type { User } from "$lib/stores/users";
 
-let { user }: { user?: User } = $props();
+    let { user } = $props();
 </script>
 
 <style>
