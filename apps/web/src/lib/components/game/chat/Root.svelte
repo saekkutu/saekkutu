@@ -3,9 +3,8 @@
     import * as Chat from "$lib/components/game/chat";
     import { Client } from "$lib/client";
     import { getContext, onMount, tick } from "svelte";
-    import { addChat, chats } from "$lib/stores/chat";
+    import { chats } from "$lib/stores/chat";
     import { PacketChatMessage, PacketType } from "@saekkutu/protocol";
-    import { currentUser } from "$lib/stores/users";
 
     let message = "";
     const client: Client = getContext("client");

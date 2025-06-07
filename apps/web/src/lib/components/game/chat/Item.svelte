@@ -18,8 +18,6 @@
         display: flex;
         flex-direction: row;
         gap: 9px;
-
-        flex: 1;
     }
 
     .chat-head {
@@ -39,7 +37,13 @@
         background-color: #FFF;
     }
 
+    .chat-body {
+        word-break: break-word;
+    }
+
     .chat-item-time {
+        flex-shrink: 0;
+
         font-size: 11px;
         color: #999999;
     }
