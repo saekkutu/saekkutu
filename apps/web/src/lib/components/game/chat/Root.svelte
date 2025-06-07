@@ -2,13 +2,41 @@
     import * as TitleBar from "$lib/components/game/titleBar";
     import * as Chat from "$lib/components/game/chat";
     import { Client } from "$lib/client";
-    import { getContext } from "svelte";
+    import { getContext, onMount, tick } from "svelte";
     import { addChat, chats } from "$lib/stores/chat";
     import { PacketChatMessage, PacketType } from "@saekkutu/protocol";
     import { currentUser } from "$lib/stores/users";
 
     let message = "";
     const client: Client = getContext("client");
+    let chatContentElement: HTMLElement;
+    let isUserScrolling = false;
+
+    onMount(() => {
+        const handleScroll = () => {
+            if (chatContentElement) {
+                const isScrolledToBottom = chatContentElement.scrollHeight - chatContentElement.clientHeight <= chatContentElement.scrollTop + 1;
+                isUserScrolling = !isScrolledToBottom;
+            }
+        }
+
+        chatContentElement.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            chatContentElement.removeEventListener('scroll', handleScroll)
+        }
+    });
+
+    $: if ($chats) {
+        autoscroll();
+    }
+
+    async function autoscroll() {
+        await tick();
+        if (chatContentElement && !isUserScrolling) {
+            chatContentElement.scrollTop = chatContentElement.scrollHeight;
+        }
+    }
 
     function handleSubmit() {
         if (!message.trim() || !client) return;
@@ -47,11 +75,11 @@
 
     .chat-content {
         font-size: 12px;
+        flex: 1;
+
+        overflow-y: auto;
         padding: 5px;
-        flex-grow: 1;
-
-        overflow-y: scroll;
-
+        
         display: flex;
         flex-direction: column;
         gap: 1px;
@@ -60,6 +88,7 @@
     .chat-input {
         width: 100%;
         height: 31px;
+        flex-shrink: 0;
 
         display: flex;
         flex-direction: row;
@@ -71,6 +100,7 @@
         padding: 5px;
 
         border: 1px solid #AAAAAA;
+        border-right: none;
         border-radius: 10px 0px 0px 10px;
 
         outline: none;
@@ -82,6 +112,7 @@
         padding: 5px;
 
         border: 1px solid #AAAAAA;
+        border-left: none;
         border-radius: 0px 10px 10px 0px;
     }
 </style>
@@ -94,7 +125,7 @@
         </TitleBar.Title>
     </TitleBar.Root>
 
-    <div class="chat-content">
+    <div class="chat-content" bind:this={chatContentElement}>
         {#each $chats as chat}
             <Chat.Item head={chat.head} body={chat.body} time={chat.time} />
         {/each}

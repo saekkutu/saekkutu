@@ -9,12 +9,15 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
+        padding: 1px 0px;
+        margin: 1px 0px;
     }
 
     .chat-item-content {
         display: flex;
         flex-direction: row;
-        gap: 5px;
+        gap: 9px;
     }
 
     .chat-head {
@@ -25,6 +28,8 @@
 
         overflow: hidden;
         text-overflow: ellipsis;
+
+        cursor: pointer;
     }
 
     .chat-head:hover {
