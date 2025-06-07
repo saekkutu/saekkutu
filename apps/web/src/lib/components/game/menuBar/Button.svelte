@@ -1,50 +1,31 @@
 <script lang="ts">
     import type { Snippet } from "svelte";
+    import type { SvelteHTMLElements } from "svelte/elements";
 
-    let { tiny, color, children, title, onClick }: {
-        tiny?: boolean,
-        color: string,
+    type Props = {
         children: Snippet,
-        title?: string,
-        onClick?: () => void
-    } = $props()
+        tiny?: boolean,
+        color?: string,
+    } & SvelteHTMLElements["button"];
+
+    let {
+        children,
+        tiny = false,
+        color = "rgb(142, 192, 243)",
+        ...restProps
+    }: Props = $props();
 </script>
 
-<style>
-    .button {
-        font-family: inherit;
-        border: none;
-        transition: all 0.2s ease;
+<button class={`
+    button h-8
+    float-left
+    rounded-xl rounded-b-none
 
-        width: 90px;
-        height: 20px;
-        padding: 5px;
+    transition-all duration-200 ease-in-out
+    hover:mt-[-0.25rem] hover:h-9
+    active:text-gray-100
 
-        border-radius: 10px;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-
-        box-sizing: inherit;
-
-        float: left;
-    }
-
-    .button:hover {
-        margin-top: -5px;
-        height: 25px;
-    }
-
-    .button:active {
-        color: #EEEEEE;
-    }
-
-    .tiny {
-        width: 20px;
-    }
-</style>
-
-<button class={`button ${tiny ? "tiny" : ""}`} style={`
-    background-color: ${color};
-`} title={title} onclick={() => onClick?.()}>
+    ${tiny ? "w-8" : "w-24"}
+`} style={`background-color: ${color};`} {...restProps}>
     {@render children()}
 </button>

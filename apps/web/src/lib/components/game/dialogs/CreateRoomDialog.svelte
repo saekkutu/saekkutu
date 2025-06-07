@@ -4,27 +4,12 @@
     import Button from "../Button.svelte";
 </script>
 
-<style>
-    .input-container {
-        display: flex;
-        flex-direction: row;
-        justify-content:  space-between;
-        align-items: center;
-        font-size: 13px;
-    }
-
-    .input-title {
-        width: 100px;
-        text-align: center;
-    }
-</style>
-
 <Dialog id="createRoom" title="방 만들기">
-    <div class="input-container">
-        <div class="input-title">방 제목</div>
-        <Input style="flex: 1;" />
+    <div class="flex flex-row justify-between items-center text-sm">
+        <div class="w-24 text-center">방 제목</div>
+        <Input class="flex-1" />
     </div>
-    <div style="display: flex; justify-content: flex-end;">
+    <div class="flex justify-end">
         <Button>만들기</Button>
     </div>
 </Dialog>

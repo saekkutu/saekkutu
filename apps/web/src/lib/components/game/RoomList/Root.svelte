@@ -1,10 +1,3 @@
-<style>
-    .room-list {
-        width: 800px;
-        height: 370px;
-    }
-</style>
-
-<div class="room-list">
+<div class="w-[800px] h-[370px]">
     ascdsc
 </div>

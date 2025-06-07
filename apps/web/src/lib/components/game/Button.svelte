@@ -4,23 +4,19 @@
 
     type Props = {
         children: Snippet;
+        class?: string;
     } & SvelteHTMLElements["button"];
 
     let {
         children,
+        class: className = "",
         ...restProps
     }: Props = $props();
 </script>
 
-<style>
-    .button {
-        padding: 5px 20px;
-
-        border: 1px solid #AAAAAA;
-        border-radius: 10px;
-    }
-</style>
-
-<button class="button" {...restProps}>
+<button class={`
+    px-5 py-1 bg-gray-200 border-1 border-gray-400 rounded-lg
+    ${className}
+`} {...restProps}>
     {@render children()}
 </button>

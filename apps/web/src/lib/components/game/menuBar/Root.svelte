@@ -4,14 +4,7 @@
     import { dialogs } from "$lib/stores/dialogs";
 </script>
 
-<style>
-    .menu-bar {
-        width: 100%;
-        height: 30px;
-    }
-</style>
-
-<div class="menu-bar">
+<div>
     <!-- Tiny Buttons -->
     <Button tiny color="rgb(187, 187, 187)" title="도움말">
         <i class="fas fa-question-circle"></i>
@@ -27,7 +20,7 @@
     </Button>
     
     <!-- Normal Buttons -->
-    <Button color="rgb(142, 192, 243)" onClick={() => {
+    <Button color="rgb(142, 192, 243)" onclick={() => {
         dialogs.update(state => ({ ...state, createRoom: !state.createRoom }));
         console.log($dialogs);
     }}>

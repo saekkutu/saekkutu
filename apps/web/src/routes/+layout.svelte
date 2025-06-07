@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount, setContext } from "svelte";
+    import "../app.css";
 
     import * as MenuBar from "$lib/components/game/MenuBar";
     import { dialogs } from "$lib/stores/dialogs";
@@ -18,24 +19,9 @@
     });
 </script>
 
-<style>
-    .game-container {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .game-screen {
-        background-color: #EEEEEE;
-        width: 1010px;
-
-        display: flex;
-        flex-direction: column;
-    }
-</style>
-
-<div class="game-container">
+<div class="flex flex-col text-sm p-5">
     <MenuBar.Root/>
-    <div class="game-screen">
+    <div class="flex flex-col bg-gray-200 w-[1010px] *:flex *:flex-row">
         {@render children()}
     </div>
 </div>

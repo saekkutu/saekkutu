@@ -4,19 +4,10 @@
     let { user } = $props();
 </script>
 
-<style>
-    .my-info {
-        width: 210px;
-        height: 200px;
-
-        padding: 5px;
-    }
-</style>
-
-<div class="my-info">
+<div class="w-[210px] h-[200px] p-1">
     <TitleBar.Root>
         <TitleBar.Title>
-            <i class="fas fa-user" style="margin-right: 5px;"></i>
+            <i class="fas fa-user mr-1"></i>
             내 정보
         </TitleBar.Title>
     </TitleBar.Root>
