@@ -14,18 +14,11 @@
     });
 </script>
 
-<style>
-    .game-screen-content {
-        display: flex;
-        flex-direction: row;
-    }
-</style>
-
-<div class="game-screen-content">
+<div>
     <UserList.Root />
     <RoomList.Root />
 </div>
-<div class="game-screen-content">
+<div>
     <MyInfo user={$currentUser} />
     <Chat.Root />
 </div>

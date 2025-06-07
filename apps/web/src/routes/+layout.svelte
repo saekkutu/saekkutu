@@ -19,24 +19,9 @@
     });
 </script>
 
-<style>
-    .game-container {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .game-screen {
-        background-color: #EEEEEE;
-        width: 1010px;
-
-        display: flex;
-        flex-direction: column;
-    }
-</style>
-
-<div class="game-container">
+<div class="flex flex-col text-sm p-5">
     <MenuBar.Root/>
-    <div class="game-screen">
+    <div class="flex flex-col bg-[#EEEEEE] w-[1010px] *:flex *:flex-row">
         {@render children()}
     </div>
 </div>
