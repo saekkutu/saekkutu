@@ -54,42 +54,7 @@
     }
 </script>
 
-<style>
-    .chat {
-        width: 800px;
-        height: 200px;
-
-        padding: 5px;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .chat-content {
-        font-size: 12px;
-        flex: 1;
-
-        overflow-y: auto;
-        padding: 5px;
-        
-        display: flex;
-        flex-direction: column;
-        gap: 1px;
-    }
-
-    .chat-input {
-        width: 100%;
-        height: 31px;
-        flex-shrink: 0;
-
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-</style>
-
-<div class="chat">
+<div class="w-[800px] h-[200px] p-2 flex flex-col justify-between">
     <TitleBar.Root>
         <TitleBar.Title>
             <i class="fas fa-comments" style="margin-right: 5px;"></i>
@@ -97,13 +62,13 @@
         </TitleBar.Title>
     </TitleBar.Root>
 
-    <div class="chat-content" bind:this={chatContentElement}>
+    <div class="text-xs flex-1 overflow-y-auto flex flex-col" bind:this={chatContentElement}>
         {#each $chats as chat}
             <Chat.Item head={chat.head} body={chat.body} time={chat.time} />
         {/each}
     </div>
 
-    <div class="chat-input">
+    <div class="w-full h-8 flex flex-row justify-between">
         <Input 
             placeholder="메시지를 입력하세요"
             bind:value={message}

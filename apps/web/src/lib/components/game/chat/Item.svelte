@@ -2,65 +2,18 @@
     let { head, body, time } = $props();
 </script>
 
-<style>
-    .chat-item {
-        width: 100%;
-
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-
-        padding: 1px 0px;
-        margin: 1px 0px;
-    }
-
-    .chat-item-content {
-        display: flex;
-        flex-direction: row;
-        gap: 9px;
-    }
-
-    .chat-head {
-        width: 100px;
-        flex-shrink: 0;
-
-        text-align: center;
-        font-weight: bold;
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        cursor: pointer;
-    }
-
-    .chat-head:hover {
-        background-color: #FFF;
-    }
-
-    .chat-body {
-        word-break: break-word;
-    }
-
-    .chat-item-time {
-        flex-shrink: 0;
-
-        font-size: 11px;
-        color: #999999;
-    }
-</style>
-
-<div class="chat-item">
-    <div class="chat-item-content">
-        <div class="chat-head">
+<div class="flex flex-row justify-between m-0.5">
+    <div class="flex flex-row gap-2">
+        <div class="w-24 text-center font-bold overflow-hidden text-ellipsis cursor-pointer hover:bg-white">
             {head}
         </div>
     
-        <div class="chat-body">
+        <div class="break-all">
             {body}
         </div>
     </div>
 
-    <div class="chat-item-time">
+    <div class="shrink-0 text-xs text-gray-400">
         {time}
     </div>
 </div>
