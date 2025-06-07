@@ -5,7 +5,7 @@
 
     let { children } = $props();
 
-    const client = new Client({ url: "ws://localhost:3000", heartbeatInterval: 2000 });
+    const client = new Client({ url: "ws://localhost:3000" });
     setContext("client", client);
 
     onMount(() => {

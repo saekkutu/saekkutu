@@ -1,6 +1,7 @@
-import { Packet, PacketBuffer,
-    PacketPing, PacketPong, PacketType,
-    PacketLogin, PacketReady,PacketUserInfoUpdate,
+import { 
+    Packet, PacketBuffer, PacketType,
+    PacketHello, PacketPing, PacketPong,
+    PacketLogin, PacketReady, PacketUserInfoUpdate,
     PacketUserInfoRemove, PacketChatMessage, PacketChatBroadcast
 } from "..";
 
@@ -44,6 +45,8 @@ export class PacketRegistry<T> {
 
     private createPacket(type: PacketType): Packet | null {
         switch (type) {
+            case PacketType.Hello:
+                return new PacketHello();
             case PacketType.Ping:
                 return new PacketPing();
             case PacketType.Pong:

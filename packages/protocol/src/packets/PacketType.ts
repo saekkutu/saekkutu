@@ -1,5 +1,6 @@
 export enum PacketType {
     // Heartbeat
+    Hello, // Used to send the heartbeat interval
     Ping,
     Pong,
 

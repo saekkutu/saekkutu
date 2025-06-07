@@ -1,5 +1,5 @@
 import { randomUUIDv7, ServerWebSocket } from "bun";
-import { PacketRegistry, PacketType, PacketUserInfoRemove } from "@saekkutu/protocol";
+import { PacketRegistry, PacketType, PacketUserInfoRemove, PacketHello } from "@saekkutu/protocol";
 import { Connection } from "./connection";
 import { ChatMessageHandler, LoginHandler, PingHandler } from "./handlers";
 
@@ -16,7 +16,7 @@ export class Server {
 
     private readonly packetRegistry: PacketRegistry<Connection> = new PacketRegistry();
 
-    constructor(config: ServerConfig = { port: 3000, heartbeatInterval: 2000 }) {
+    constructor(config: ServerConfig = { port: 3000, heartbeatInterval: 20000 }) {
         this.config = {
             ...config,
         };
@@ -66,6 +66,10 @@ export class Server {
     private onOpen(ws: ServerWebSocket<string>) {
         const connection = new Connection(this, ws);
         this.connections.set(ws.data, connection);
+
+        const helloPacket = new PacketHello();
+        helloPacket.interval = this.config.heartbeatInterval;
+        connection.send(PacketType.Hello, helloPacket);
     }
 
     private onMessage(ws: ServerWebSocket<string>, message: string | Buffer) {

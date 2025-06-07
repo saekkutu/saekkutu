@@ -1,5 +1,7 @@
 export * from "./Packet";
 export * from "./PacketType";
+
+export * from "./PacketHello";
 export * from "./PacketPing";
 export * from "./PacketPong";
 export * from "./PacketLogin";

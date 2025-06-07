@@ -9,12 +9,7 @@ export interface Chat {
 export const chats = writable<Chat[]>([]);
 
 export const addChat = (chat: Chat) => {
-    chats.update(currentChats => {
-        if (!currentChats.find(c => c.time === chat.time)) {
-            return [...currentChats, chat];
-        }
-        return currentChats;
-    });
+    chats.update(currentChats => [...currentChats, chat]);
 };
 
 export const removeChat = (time: string) => {
