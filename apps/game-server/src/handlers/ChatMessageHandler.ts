@@ -11,9 +11,7 @@ export class ChatMessageHandler {
         broadcastPacket.message = packet.message;
 
         for (const otherConnection of connection.server.connections.values()) {
-            if (otherConnection.id === connection.id) continue;
             if (!otherConnection.user) continue;
-
             otherConnection.send(PacketType.ChatBroadcast, broadcastPacket);
         }
     }

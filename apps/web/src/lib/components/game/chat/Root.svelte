@@ -44,12 +44,6 @@
         const packet = new PacketChatMessage();
         packet.message = message;
         client.send(PacketType.ChatMessage, packet);
-        
-        addChat({
-            head: $currentUser?.username ?? "Unknown",
-            body: message,
-            time: new Date().toLocaleTimeString()
-        });
 
         message = "";
     }
