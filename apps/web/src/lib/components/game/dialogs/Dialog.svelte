@@ -37,62 +37,32 @@
         document.addEventListener("mouseup", handleMouseUp);
         document.addEventListener("mousemove", handleMouseMove);
     });
-    
-    </script>
+</script>
 
-<style>
-    .dialog {
-        position: fixed;
-        min-width: 310px;
-        padding: 5px;
-
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-
-        border-radius: 10px;
-        color: #111111;
-
-        background-color: #EEEEEE;
-        box-shadow: 0px 1px 1px #141414;
-    }
-
-    .title-bar {
-        cursor: move;
-    }
-
-    .close-button {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background-color: #EE5555;
-        margin: 3px;
-        cursor: default;
-        border: none;
-    }
-    
-    .close-button:hover {
-        background-color: #EE7777;
-    }
-
-    .dialog-content {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-</style>
-
-<div class="dialog" bind:this={dialog}>
-    <div class="title-bar" bind:this={titleBar}>
+<div class="
+    fixed min-w-80 p-1
+    top-1/2 left-1/2
+    transform -translate-x-1/2 -translate-y-1/2
+    bg-gray-200 rounded-lg shadow-lg
+    border-1 border-gray-400
+" bind:this={dialog}>
+    <div class="cursor-move" bind:this={titleBar}>
         <TitleBar.Root spacing={0}>
             <TitleBar.Title>{title}</TitleBar.Title>
-            <button aria-label="닫기" class="close-button" onclick={() => {
+            <button aria-label="닫기" class="
+                w-3 h-3
+                rounded-full
+                border-none
+                bg-red-500 hover:bg-red-400
+                cursor-default
+                m-1
+            " onclick={() => {
                 $dialogs[id as keyof typeof $dialogs] = false;
             }}></button>
         </TitleBar.Root>
     </div>
 
-    <div class="dialog-content">
+    <div class="flex flex-col gap-1">
         {@render children()}
     </div>
 </div>
