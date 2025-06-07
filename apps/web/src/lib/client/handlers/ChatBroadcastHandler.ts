@@ -9,7 +9,10 @@ export class ChatBroadcastHandler {
     public static handle(_client: Client, packet: PacketChatBroadcast) {
         if (!packet.id || !packet.message) throw new Error("Id or message is not set");
 
-        const head = get(users).find(user => user.id === packet.id)?.username || "Unknown";
+        const user = get(users).find(user => user.id === packet.id);
+        if (!user) return;
+
+        const head = user.username;
         const time = new Date().toLocaleTimeString();
 
         addChat({ head: head, body: packet.message, time: time });
