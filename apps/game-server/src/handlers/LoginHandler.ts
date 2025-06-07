@@ -8,7 +8,7 @@ export class LoginHandler {
         if (!packet.username) throw new Error("Username is not set");
 
         const randomId = randomInt(1, 1000000);
-        connection.user = new User(randomId, `Unknown${randomId}`);
+        connection.user = new User(randomId, `새끄투${randomId}`);
 
         const readyPacket = new PacketReady();
         readyPacket.id = connection.user.id;
