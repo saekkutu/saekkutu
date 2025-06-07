@@ -34,13 +34,13 @@ export class AudioSource {
             const gainNode = AudioSource.audioContext.createGain();
             gainNode.gain.value = this.volume;
             gainNode.connect(AudioSource.audioContext.destination);
-            
+
             source.connect(gainNode);
+        } else {
+            source.connect(AudioSource.audioContext.destination);
         }
 
         source.loop = this.loop;
-
-        source.connect(AudioSource.audioContext.destination);
         source.start();
 
         await AudioSource.audioContext.resume();
