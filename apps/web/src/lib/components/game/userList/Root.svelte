@@ -4,27 +4,7 @@
     import { users } from "$lib/stores/users";
 </script>
 
-<style>
-    .user-list {
-        width: 210px;
-        height: 370px;
-
-        border-radius: 0px;
-        color: #111111;
-
-        padding: 5px;
-    }
-
-    .user-list-content {
-        height: 335px;
-        font-size: 12px;
-        
-        overflow-x: hidden;
-        overflow-y: scroll;
-    }
-</style>
-
-<div class="user-list">
+<div class="w-[210px] h-[370px] p-1">
     <TitleBar.Root>
         <TitleBar.Title>
             <i class="fas fa-users" style="margin-right: 5px;"></i>
@@ -33,12 +13,12 @@
         </TitleBar.Title>
 
         <TitleBar.Button rightSide>
-            <i class="fas fa-sort-numeric-asc" style="margin-right: 5px;"></i>
-            정렬
+            <i class="fas fa-sort-numeric-asc"></i>
+            
         </TitleBar.Button>
     </TitleBar.Root>
 
-    <div class="user-list-content">
+    <div class="h-[335px] text-xs overflow-y-scroll">
         {#each $users as user}
             <Item>{user.username}</Item>
         {/each}

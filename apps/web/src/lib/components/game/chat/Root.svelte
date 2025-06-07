@@ -54,7 +54,7 @@
     }
 </script>
 
-<div class="w-[800px] h-[200px] p-2 flex flex-col justify-between">
+<div class="w-[800px] h-[200px] p-1 flex flex-col justify-between">
     <TitleBar.Root>
         <TitleBar.Title>
             <i class="fas fa-comments" style="margin-right: 5px;"></i>
