@@ -7,7 +7,7 @@
     import { AudioSource } from "$lib/utils";
 
     onMount(async () => {
-        const source = await AudioSource.fromURL("/audio/lobby.mp3", true, 0.5);
+        const source = await AudioSource.fromURL("/audio/lobby.mp3", { loop: true, volume: 0.5 });
         await source.play();
     });
 </script>

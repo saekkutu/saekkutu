@@ -18,7 +18,7 @@ export class ChatBroadcastHandler {
 
         addChat({ head: head, body: packet.message, time: time });
 
-        const source = await AudioSource.fromURL("/audio/alert.mp3", false);
+        const source = await AudioSource.fromURL("/audio/alert.mp3");
         await source.play();
     }
 }
