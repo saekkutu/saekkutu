@@ -13,20 +13,14 @@
     }: Props = $props();
 </script>
 
-<style>
-    input {
-        padding: 5px;
-
-        border: 1px solid #AAAAAA;
-        border-radius: 10px;
-
-        outline: none;
-    }
-</style>
-
 <input 
     type="text" 
     bind:value
-    class={className}
+    class={`
+        p-1 bg-white
+        border-1 border-gray-400 outline-none
+        rounded-lg
+        ${className}
+    `}
     {...restProps}
 />

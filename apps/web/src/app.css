@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+    --color-gray-200: #EEEEEE;
+    --color-gray-400: #AAAAAA;
+}
+
 @font-face {
     font-family: 'NanumBarunGothic';
     src: url('/font/NanumBarunGothic.woff2');

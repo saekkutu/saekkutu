@@ -23,7 +23,7 @@
 
     transition-all duration-200 ease-in-out
     hover:mt-[-0.25rem] hover:h-9
-    active:text-[#EEEEEE]
+    active:text-gray-100
 
     ${tiny ? "w-8" : "w-24"}
 `} style={`background-color: ${color};`} {...restProps}>
