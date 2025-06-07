@@ -134,7 +134,7 @@
     <div class="chat-input">
         <input 
             type="text" 
-            placeholder="메시지를 입력하세요." 
+            placeholder="메시지를 입력하세요" 
             bind:value={message}
             on:keypress={handleKeyPress}
         />
