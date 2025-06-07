@@ -8,7 +8,7 @@ export class ChatMessageHandler {
 
         const broadcastPacket = new PacketChatBroadcast();
         broadcastPacket.id = connection.user.id;
-        broadcastPacket.message = packet.message;
+        broadcastPacket.message = packet.message.slice(0, 100);
 
         for (const otherConnection of connection.server.connections.values()) {
             if (!otherConnection.user) continue;
