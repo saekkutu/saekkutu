@@ -2,6 +2,7 @@
     import * as MenuBar from "$lib/components/game/menuBar";
     import { Client } from "$lib/client";
     import { onMount, setContext } from "svelte";
+    import { AudioSource } from "$lib/utils";
 
     let { children } = $props();
 
@@ -9,6 +10,7 @@
     setContext("client", client);
 
     onMount(() => {
+        AudioSource.audioContext = new AudioContext();
         client.connect();
     });
 </script>

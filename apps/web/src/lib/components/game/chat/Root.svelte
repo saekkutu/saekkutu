@@ -1,13 +1,12 @@
 <script lang="ts">
     import * as TitleBar from "$lib/components/game/titleBar";
     import * as Chat from "$lib/components/game/chat";
-    import { Client } from "$lib/client";
-    import { getContext, onMount, tick } from "svelte";
+    import { onMount, tick } from "svelte";
     import { chats } from "$lib/stores/chat";
     import { PacketChatMessage, PacketType } from "@saekkutu/protocol";
-
+    import { Client } from "$lib/client";
+    
     let message = "";
-    const client: Client = getContext("client");
     let chatContentElement: HTMLElement;
     let isUserScrolling = false;
 
@@ -38,11 +37,11 @@
     }
 
     function handleSubmit() {
-        if (!message.trim() || !client) return;
+        if (!message.trim() || !Client.instance) return;
         
         const packet = new PacketChatMessage();
         packet.message = message;
-        client.send(PacketType.ChatMessage, packet);
+        Client.instance.send(PacketType.ChatMessage, packet);
 
         message = "";
     }

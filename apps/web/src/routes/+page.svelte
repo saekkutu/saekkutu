@@ -3,6 +3,13 @@
     import * as Chat from "$lib/components/game/chat";
     import MyInfo from "$lib/components/game/MyInfo.svelte";
     import { currentUser } from "$lib/stores/users";
+    import { onMount } from "svelte";
+    import { AudioSource } from "$lib/utils";
+
+    onMount(async () => {
+        const source = await AudioSource.fromURL("/audio/lobby.mp3", true, 0.1);
+        await source.play();
+    });
 </script>
 
 <style>

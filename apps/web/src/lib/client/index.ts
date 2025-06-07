@@ -12,6 +12,8 @@ export interface ClientConfig {
 }
 
 export class Client {
+    public static instance: Client;
+
     private config: ClientConfig;
     private ws?: WebSocket;
     private packetRegistry: PacketRegistry<Client> = new PacketRegistry();
@@ -22,6 +24,8 @@ export class Client {
     constructor(config: ClientConfig) {
         this.config = config;
         this.registerHandlers();
+
+        Client.instance = this;
     }
 
     public connect() {
