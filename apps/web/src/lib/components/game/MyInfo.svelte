@@ -1,5 +1,5 @@
 <script lang="ts">
-    import * as TitleBar from "$lib/components/game/titleBar";
+    import * as TitleBar from "$lib/components/game/TitleBar";
 
     let { user } = $props();
 </script>

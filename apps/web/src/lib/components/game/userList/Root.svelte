@@ -1,5 +1,5 @@
 <script>
-    import * as TitleBar from "../titleBar";
+    import * as TitleBar from "../TitleBar";
     import { Item } from ".";
     import { users } from "$lib/stores/users";
 </script>

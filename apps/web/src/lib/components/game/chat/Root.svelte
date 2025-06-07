@@ -1,11 +1,11 @@
 <script lang="ts">
-    import * as TitleBar from "$lib/components/game/titleBar";
-    import * as Chat from "$lib/components/game/chat";
+    import * as TitleBar from "$lib/components/game/TitleBar";
+    import * as Chat from "$lib/components/game/Chat";
     import { onMount, tick } from "svelte";
     import { chats } from "$lib/stores/chat";
     import { PacketChatMessage, PacketType } from "@saekkutu/protocol";
     import { Client } from "$lib/client";
-    
+
     let message = "";
     let chatContentElement: HTMLElement;
     let isUserScrolling = false;

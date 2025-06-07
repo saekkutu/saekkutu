@@ -1,7 +1,8 @@
 <script lang="ts">
-    import * as MenuBar from "$lib/components/game/menuBar";
-    import { Client } from "$lib/client";
+    import * as MenuBar from "$lib/components/game/MenuBar";
+
     import { onMount, setContext } from "svelte";
+    import { Client } from "$lib/client";
     import { AudioSource } from "$lib/utils";
 
     let { children } = $props();

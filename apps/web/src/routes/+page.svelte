@@ -1,9 +1,11 @@
 <script lang="ts">
-    import * as UserList from "$lib/components/game/userList";
-    import * as Chat from "$lib/components/game/chat";
+    import * as UserList from "$lib/components/game/UserList";
+    import * as Chat from "$lib/components/game/Chat";
+    import * as RoomList from "$lib/components/game/RoomList";
     import MyInfo from "$lib/components/game/MyInfo.svelte";
-    import { currentUser } from "$lib/stores/users";
+
     import { onMount } from "svelte";
+    import { currentUser } from "$lib/stores/users";
     import { AudioSource } from "$lib/utils";
 
     onMount(async () => {
@@ -21,6 +23,7 @@
 
 <div class="game-screen-content">
     <UserList.Root />
+    <RoomList.Root />
 </div>
 <div class="game-screen-content">
     <MyInfo user={$currentUser} />
