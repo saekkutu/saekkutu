@@ -57,7 +57,7 @@
 <div class="w-[800px] h-[200px] p-1 flex flex-col justify-between">
     <TitleBar.Root>
         <TitleBar.Title>
-            <i class="fas fa-comments" style="margin-right: 5px;"></i>
+            <i class="fas fa-comments mr-1"></i>
             채팅
         </TitleBar.Title>
     </TitleBar.Root>
@@ -73,8 +73,8 @@
             placeholder="메시지를 입력하세요"
             bind:value={message}
             onkeypress={handleKeyPress}
-            style="border-right: none; border-radius: 10px 0px 0px 10px; width: 100%;"
+            class="w-full rounded-r-none border-r-0"
         />
-        <Button style="border-left: none; border-radius: 0px 10px 10px 0px; flex-shrink: 0;" onclick={handleSubmit}>전송</Button>
+        <Button class="shrink-0 rounded-l-none border-l-0" onclick={handleSubmit}>전송</Button>
     </div>
 </div>

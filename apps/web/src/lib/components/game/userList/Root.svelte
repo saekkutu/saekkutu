@@ -7,7 +7,7 @@
 <div class="w-[210px] h-[370px] p-1">
     <TitleBar.Root>
         <TitleBar.Title>
-            <i class="fas fa-users" style="margin-right: 5px;"></i>
+            <i class="fas fa-users mr-1"></i>
             {"<"}<b>감자</b>{">"} 
             접속자 목록 [{$users.length}명]
         </TitleBar.Title>
