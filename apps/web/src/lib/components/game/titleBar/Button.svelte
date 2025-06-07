@@ -4,7 +4,7 @@
 
 <style>
     .title-bar-button {
-        padding: 0px 15px;
+        padding: 1px 15px;
 
         font-size: inherit;
         letter-spacing: inherit;

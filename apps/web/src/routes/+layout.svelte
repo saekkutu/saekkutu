@@ -1,9 +1,11 @@
 <script lang="ts">
-    import * as MenuBar from "$lib/components/game/MenuBar";
-
     import { onMount, setContext } from "svelte";
+
+    import * as MenuBar from "$lib/components/game/MenuBar";
+    import { dialogs } from "$lib/stores/dialogs";
     import { Client } from "$lib/client";
     import { AudioSource } from "$lib/utils";
+    import { CreateRoomDialog } from "$lib/components/game/dialogs";
 
     let { children } = $props();
 
@@ -32,8 +34,12 @@
 </style>
 
 <div class="game-container">
-    <MenuBar.Root />
+    <MenuBar.Root/>
     <div class="game-screen">
         {@render children()}
     </div>
 </div>
+
+{#if $dialogs.createRoom}
+    <CreateRoomDialog />
+{/if}

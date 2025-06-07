@@ -5,7 +5,6 @@
 <style>
     .title-bar-title {
         padding: 3px;
-        
         font-size: inherit;
         letter-spacing: inherit;
     }

@@ -1,11 +1,12 @@
 <script lang="ts">
     import type { Snippet } from "svelte";
 
-    let { tiny, color, children, title }: {
+    let { tiny, color, children, title, onClick }: {
         tiny?: boolean,
         color: string,
         children: Snippet,
-        title?: string
+        title?: string,
+        onClick?: () => void
     } = $props()
 </script>
 
@@ -44,6 +45,6 @@
 
 <button class={`button ${tiny ? "tiny" : ""}`} style={`
     background-color: ${color};
-`} title={title}>
+`} title={title} onclick={() => onClick?.()}>
     {@render children()}
 </button>

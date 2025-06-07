@@ -1,6 +1,9 @@
 <script lang="ts">
     import * as TitleBar from "$lib/components/game/TitleBar";
     import * as Chat from "$lib/components/game/Chat";
+    import Input from "../Input.svelte";
+    import Button from "../Button.svelte";
+
     import { onMount, tick } from "svelte";
     import { chats } from "$lib/stores/chat";
     import { PacketChatMessage, PacketType } from "@saekkutu/protocol";
@@ -36,6 +39,10 @@
         }
     }
 
+    function handleKeyPress(event: KeyboardEvent) {
+        if (event.key === "Enter") handleSubmit();
+    }
+
     function handleSubmit() {
         if (!message.trim() || !Client.instance) return;
         
@@ -44,12 +51,6 @@
         Client.instance.send(PacketType.ChatMessage, packet);
 
         message = "";
-    }
-
-    function handleKeyPress(event: KeyboardEvent) {
-        if (event.key === "Enter") {
-            handleSubmit();
-        }
     }
 </script>
 
@@ -86,27 +87,6 @@
         flex-direction: row;
         justify-content: space-between;
     }
-
-    .chat-input input {
-        width: 100%;
-        padding: 5px;
-
-        border: 1px solid #AAAAAA;
-        border-right: none;
-        border-radius: 10px 0px 0px 10px;
-
-        outline: none;
-    }
-
-    .chat-input button {
-        width: 70px;
-        height: 100%;
-        padding: 5px;
-
-        border: 1px solid #AAAAAA;
-        border-left: none;
-        border-radius: 0px 10px 10px 0px;
-    }
 </style>
 
 <div class="chat">
@@ -124,12 +104,12 @@
     </div>
 
     <div class="chat-input">
-        <input 
-            type="text" 
-            placeholder="메시지를 입력하세요" 
+        <Input 
+            placeholder="메시지를 입력하세요"
             bind:value={message}
-            on:keypress={handleKeyPress}
+            onkeypress={handleKeyPress}
+            style="border-right: none; border-radius: 10px 0px 0px 10px; width: 100%;"
         />
-        <button on:click={handleSubmit}>전송</button>
+        <Button style="border-left: none; border-radius: 0px 10px 10px 0px; flex-shrink: 0;" onclick={handleSubmit}>전송</Button>
     </div>
 </div>

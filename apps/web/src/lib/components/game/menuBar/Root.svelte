@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
     import { Button } from ".";
     import '@fortawesome/fontawesome-free/css/all.min.css'
+    import { dialogs } from "$lib/stores/dialogs";
 </script>
 
 <style>
@@ -26,7 +27,10 @@
     </Button>
     
     <!-- Normal Buttons -->
-    <Button color="rgb(142, 192, 243)">
+    <Button color="rgb(142, 192, 243)" onClick={() => {
+        dialogs.update(state => ({ ...state, createRoom: !state.createRoom }));
+        console.log($dialogs);
+    }}>
         방 만들기
     </Button>
     <Button color="rgb(176, 210, 243)">
