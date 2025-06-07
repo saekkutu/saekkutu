@@ -18,10 +18,13 @@
         display: flex;
         flex-direction: row;
         gap: 9px;
+
+        flex: 1;
     }
 
     .chat-head {
         width: 100px;
+        flex-shrink: 0;
 
         text-align: center;
         font-weight: bold;
