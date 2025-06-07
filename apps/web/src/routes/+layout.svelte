@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount, setContext } from "svelte";
+    import "../app.css";
 
     import * as MenuBar from "$lib/components/game/MenuBar";
     import { dialogs } from "$lib/stores/dialogs";

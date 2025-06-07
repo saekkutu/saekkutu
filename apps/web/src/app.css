@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('/font/NanumBarunGothic.woff2');
+}
+
+body {
+    font-family: 'NanumBarunGothic', '돋움';
+}
+
+.fas {
+    font-weight: 900;
+    font-size: 0.9em;
+}
