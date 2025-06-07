@@ -14,11 +14,10 @@
 
         <TitleBar.Button rightSide>
             <i class="fas fa-sort-numeric-asc"></i>
-            
         </TitleBar.Button>
     </TitleBar.Root>
 
-    <div class="h-[335px] text-xs overflow-y-scroll">
+    <div class="h-[335px] text-xs overflow-y-auto">
         {#each $users as user}
             <Item>{user.username}</Item>
         {/each}
