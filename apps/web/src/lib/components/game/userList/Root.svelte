@@ -4,7 +4,7 @@
     import { users } from "$lib/stores/users";
 </script>
 
-<div class="w-[210px] h-[370px] p-1">
+<div class="w-[210px] h-[370px] flex flex-col p-1">
     <TitleBar.Root>
         <TitleBar.Title>
             <i class="fas fa-users mr-1"></i>
@@ -17,8 +17,39 @@
         </TitleBar.Button>
     </TitleBar.Root>
 
-    <div class="h-[335px] text-xs overflow-y-auto">
+    <div class="text-xs overflow-y-auto">
         {#each $users as user}
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
+            <Item>{user.username}</Item>
             <Item>{user.username}</Item>
         {/each}
     </div>
