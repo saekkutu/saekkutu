@@ -4,7 +4,7 @@
     import { rooms } from "$lib/stores/rooms";
 </script>
 
-<div class="w-[800px] h-[370px] p-1">
+<div class="w-[800px] h-[370px] flex flex-col p-1">
     <TitleBar.Root>
         <TitleBar.Title>
             <i class="fas fa-bars mr-1"></i>
@@ -12,7 +12,7 @@
         </TitleBar.Title>
     </TitleBar.Root>
 
-    <div class="grid grid-cols-2 gap-2 overflow-y-auto h-full">
+    <div class="grid grid-cols-2 gap-2 overflow-y-auto">
         {#each $rooms as room}
             <RoomList.Item id=1 title={room.title} />
         {/each}
