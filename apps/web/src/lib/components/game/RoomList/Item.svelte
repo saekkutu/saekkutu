@@ -8,7 +8,7 @@
             {id}
         </div>
 
-        <div class="flex flex-col p-2">
+        <div class="flex flex-col ml-2 py-1">
             <div class="text-base font-bold">
                 {title}
             </div>

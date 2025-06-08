@@ -12,7 +12,7 @@
         </TitleBar.Title>
     </TitleBar.Root>
 
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-2 gap-2 overflow-y-auto h-full">
         {#each $rooms as room}
             <RoomList.Item id=1 title={room.title} />
         {/each}
