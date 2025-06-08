@@ -4,8 +4,6 @@ import { Packet, PacketBuffer } from "../..";
 export class PacketLogin implements Packet {
     public username?: string;
 
-    constructor() {}
-
     public read(buffer: PacketBuffer) {
         this.username = buffer.readString();
     }

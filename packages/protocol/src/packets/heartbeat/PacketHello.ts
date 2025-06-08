@@ -3,8 +3,6 @@ import { Packet, PacketBuffer } from "../..";
 export class PacketHello implements Packet {
     public interval?: number;
 
-    constructor() {}
-
     public read(buffer: PacketBuffer): void {
         this.interval = buffer.readInt32();
     }

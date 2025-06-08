@@ -18,7 +18,6 @@
 
 <button class={`
     button h-8
-    float-left
     rounded-xl rounded-b-none
 
     transition-normal duration-200 ease-in-out

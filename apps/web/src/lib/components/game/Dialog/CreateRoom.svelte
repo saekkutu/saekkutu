@@ -7,6 +7,7 @@
     import type { Client } from "$lib/client";
     import { getContext } from "svelte";
     import { dialogs } from "$lib/stores/dialogs";
+    import { goto } from "$app/navigation";
 
     let title = $state("");
     

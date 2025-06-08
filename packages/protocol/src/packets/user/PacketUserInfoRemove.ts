@@ -3,8 +3,6 @@ import { Packet, PacketBuffer } from "../..";
 export class PacketUserInfoRemove implements Packet {
     public id?: number;
 
-    constructor() {}
-
     public read(buffer: PacketBuffer): void {
         this.id = buffer.readUint32();
     }

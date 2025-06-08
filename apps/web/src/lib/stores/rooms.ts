@@ -3,6 +3,7 @@ import { writable } from 'svelte/store';
 export interface Room {
     id: number;
     title: string;
+    owner: number;
 }
 
 export const rooms = writable<Room[]>([]);

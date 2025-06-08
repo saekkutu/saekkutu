@@ -4,8 +4,6 @@ export class PacketUserInfoUpdate implements Packet {
     public id?: number;
     public username?: string;
 
-    constructor() {}
-
     public read(buffer: PacketBuffer): void {
         this.id = buffer.readUint32();
         this.username = buffer.readString();

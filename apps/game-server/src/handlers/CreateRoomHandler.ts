@@ -5,6 +5,7 @@ import { Room } from "../room";
 export class CreateRoomHandler {
     public static async handle(connection: Connection, packet: PacketRoomCreate) {
         if (!packet.title) return;
+        if (!connection.user) return;
 
         let id = -1;
         for (let i = 1; i <= 999; i++) {
@@ -24,7 +25,10 @@ export class CreateRoomHandler {
         const infoUpdatePacket = new PacketRoomInfoUpdate();
         infoUpdatePacket.id = room.id;
         infoUpdatePacket.title = room.title;
+        infoUpdatePacket.owner = connection.user.id;
 
-        connection.send(PacketType.RoomInfoUpdate, infoUpdatePacket);
+        for (const otherConnection of connection.server.connections.values()) {
+            otherConnection.send(PacketType.RoomInfoUpdate, infoUpdatePacket);
+        }
     }
 }
