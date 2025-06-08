@@ -1,4 +1,4 @@
-import { Packet, PacketBuffer } from "..";
+import { Packet, PacketBuffer } from "../..";
 
 export class PacketUserInfoRemove implements Packet {
     public id?: number;

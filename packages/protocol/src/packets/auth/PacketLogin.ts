@@ -1,4 +1,4 @@
-import { Packet, PacketBuffer } from "..";
+import { Packet, PacketBuffer } from "../..";
 
 // TODO: Currently no auth system, so we just send the username
 export class PacketLogin implements Packet {

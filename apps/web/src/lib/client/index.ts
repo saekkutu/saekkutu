@@ -2,10 +2,8 @@ import { PacketBuffer, PacketLogin, PacketPing, PacketRegistry, PacketType, type
 import { addUser, clearUsers, removeUser, users } from "$lib/stores/users";
 import { addChat } from "$lib/stores/chat";
 import { get } from "svelte/store";
-import { 
-    HelloHandler, PongHandler, ReadyHandler,
-    UserInfoUpdateHandler, UserInfoRemoveHandler, ChatBroadcastHandler 
-} from "./handlers";
+import * as Handlers from "./handlers";
+import { clearRooms } from "$lib/stores/rooms";
 
 export interface ClientConfig {
     url: string;
@@ -39,19 +37,23 @@ export class Client {
 
     public disconnect() {
         clearUsers();
+        clearRooms();
+
         this.ws?.close();
         this.heartbeatInterval && clearInterval(this.heartbeatInterval);
     }
     
     public registerHandlers() {
-        this.packetRegistry.register(PacketType.Hello, HelloHandler.handle);
-        this.packetRegistry.register(PacketType.Pong, PongHandler.handle);
-        this.packetRegistry.register(PacketType.Ready, ReadyHandler.handle);
+        this.packetRegistry.register(PacketType.Hello, Handlers.HelloHandler.handle);
+        this.packetRegistry.register(PacketType.Pong, Handlers.PongHandler.handle);
+        this.packetRegistry.register(PacketType.Ready, Handlers.ReadyHandler.handle);
 
-        this.packetRegistry.register(PacketType.UserInfoUpdate, UserInfoUpdateHandler.handle);
-        this.packetRegistry.register(PacketType.UserInfoRemove, UserInfoRemoveHandler.handle);
+        this.packetRegistry.register(PacketType.UserInfoUpdate, Handlers.UserInfoUpdateHandler.handle);
+        this.packetRegistry.register(PacketType.UserInfoRemove, Handlers.UserInfoRemoveHandler.handle);
 
-        this.packetRegistry.register(PacketType.ChatBroadcast, ChatBroadcastHandler.handle);
+        this.packetRegistry.register(PacketType.ChatBroadcast, Handlers.ChatBroadcastHandler.handle);
+
+        this.packetRegistry.register(PacketType.RoomInfoUpdate, Handlers.RoomInfoUpdateHandler.handle);
     }
 
     public send(type: PacketType, data: Packet) {

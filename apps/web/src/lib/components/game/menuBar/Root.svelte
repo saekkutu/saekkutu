@@ -20,10 +20,7 @@
     </Button>
     
     <!-- Normal Buttons -->
-    <Button color="rgb(142, 192, 243)" onclick={() => {
-        dialogs.update(state => ({ ...state, createRoom: !state.createRoom }));
-        console.log($dialogs);
-    }}>
+    <Button color="rgb(142, 192, 243)" onclick={() => { dialogs.update(state => ({ ...state, createRoom: !state.createRoom })); }}>
         방 만들기
     </Button>
     <Button color="rgb(176, 210, 243)">

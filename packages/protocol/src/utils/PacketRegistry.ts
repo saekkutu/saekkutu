@@ -2,7 +2,8 @@ import {
     Packet, PacketBuffer, PacketType,
     PacketHello, PacketPing, PacketPong,
     PacketLogin, PacketReady, PacketUserInfoUpdate,
-    PacketUserInfoRemove, PacketChatMessage, PacketChatBroadcast
+    PacketUserInfoRemove, PacketChatMessage, PacketChatBroadcast,
+    PacketRoomCreate, PacketRoomInfoUpdate
 } from "..";
 
 export type PacketHandler<T> = (something: T, packet: Packet) => void;
@@ -63,6 +64,10 @@ export class PacketRegistry<T> {
                 return new PacketChatMessage();
             case PacketType.ChatBroadcast:
                 return new PacketChatBroadcast();
+            case PacketType.RoomCreate:
+                return new PacketRoomCreate();
+            case PacketType.RoomInfoUpdate:
+                return new PacketRoomInfoUpdate();
             default:
                 return null;
         }

@@ -1,4 +1,4 @@
-import { PacketBuffer, Packet } from "..";
+import { Packet, PacketBuffer } from "../..";
 
 export class PacketHello implements Packet {
     public interval?: number;

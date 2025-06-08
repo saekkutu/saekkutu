@@ -1,7 +1,8 @@
 import { randomUUIDv7, ServerWebSocket } from "bun";
 import { PacketRegistry, PacketType, PacketUserInfoRemove, PacketHello } from "@saekkutu/protocol";
 import { Connection } from "./connection";
-import { ChatMessageHandler, LoginHandler, PingHandler } from "./handlers";
+import { ChatMessageHandler, CreateRoomHandler, LoginHandler, PingHandler } from "./handlers";
+import { Room } from "./room";
 
 export interface ServerConfig {
     port: number;
@@ -12,7 +13,9 @@ export class Server {
     public readonly config: ServerConfig;
 
     public wsServer?: Bun.Server;
+    
     public readonly connections: Map<string, Connection> = new Map();
+    public readonly rooms: Map<string, Room> = new Map();
 
     private readonly packetRegistry: PacketRegistry<Connection> = new PacketRegistry();
 
@@ -27,6 +30,7 @@ export class Server {
         this.packetRegistry.register(PacketType.Ping, PingHandler.handle);
         this.packetRegistry.register(PacketType.Login, LoginHandler.handle);
         this.packetRegistry.register(PacketType.ChatMessage, ChatMessageHandler.handle);
+        this.packetRegistry.register(PacketType.RoomCreate, CreateRoomHandler.handle);
     }
 
     public serve() {

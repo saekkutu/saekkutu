@@ -4,15 +4,22 @@ export enum PacketType {
     Ping,
     Pong,
 
-    // Login
+    // Auth
     Login,
     Ready,
 
-    // User List
+    // User
     UserInfoUpdate,
     UserInfoRemove,
 
     // Chat
     ChatMessage, // C2S
     ChatBroadcast, // S2C
+
+    // Room
+    RoomCreate,
+    // RoomJoin,
+    // RoomLeave,
+    RoomInfoUpdate,
+    RoomInfoRemove,
 }

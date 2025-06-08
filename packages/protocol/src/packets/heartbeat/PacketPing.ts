@@ -1,4 +1,4 @@
-import { Packet, PacketBuffer } from "..";
+import { Packet, PacketBuffer } from "../..";
 
 export class PacketPing implements Packet {
     read(_buffer: PacketBuffer): void {}

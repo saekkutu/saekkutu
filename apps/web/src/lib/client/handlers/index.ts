@@ -4,3 +4,4 @@ export * from "./ReadyHandler";
 export * from "./UserInfoUpdateHandler";
 export * from "./UserInfoRemoveHandler";
 export * from "./ChatBroadcastHandler";
+export * from "./RoomInfoUpdateHandler";
