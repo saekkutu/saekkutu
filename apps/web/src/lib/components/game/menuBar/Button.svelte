@@ -21,7 +21,7 @@
     float-left
     rounded-xl rounded-b-none
 
-    transition-all duration-200 ease-in-out
+    transition-normal duration-200 ease-in-out
     hover:mt-[-0.25rem] hover:h-9
     active:text-gray-100
 
