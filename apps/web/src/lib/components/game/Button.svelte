@@ -16,6 +16,7 @@
 
 <button class={`
     px-5 py-1 bg-gray-200 border-1 border-gray-400 rounded-lg
+    transition-colors duration-200 ease-in-out active:bg-gray-400
     ${className}
 `} {...restProps}>
     {@render children()}
