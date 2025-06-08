@@ -4,14 +4,20 @@
     import * as RoomList from "$lib/components/game/RoomList";
     import * as MenuBar from "$lib/components/game/MenuBar";
     import MyInfo from "$lib/components/game/MyInfo.svelte";
-
+    import { Client } from "$lib/client";
     import { onMount } from "svelte";
     import { currentUser } from "$lib/stores/users";
     import { playLobby } from "$lib/stores/audios";
     import { dialogs } from "$lib/stores/dialogs";
+    import { currentRoom } from "$lib/stores/rooms";
+    import { PacketRoomLeave, PacketType } from "@saekkutu/protocol";
+    import { getContext } from "svelte";
+
+    const client: Client = getContext("client");
 
     onMount(async () => {
         await playLobby();
+        if ($currentRoom) client.send(PacketType.RoomLeave, new PacketRoomLeave());
     });
 </script>
 

@@ -1,7 +1,7 @@
 import { randomUUIDv7, ServerWebSocket } from "bun";
 import { PacketRegistry, PacketType, PacketUserInfoRemove, PacketHello } from "@saekkutu/protocol";
 import { Connection } from "./connection";
-import { ChatMessageHandler, CreateRoomHandler, LoginHandler, PingHandler } from "./handlers";
+import { ChatMessageHandler, CreateRoomHandler, LoginHandler, PingHandler, RoomJoinHandler, RoomLeaveHandler } from "./handlers";
 import { Room } from "./room";
 
 export interface ServerConfig {
@@ -32,6 +32,8 @@ export class Server {
         this.packetRegistry.register(PacketType.Login, LoginHandler.handle);
         this.packetRegistry.register(PacketType.ChatMessage, ChatMessageHandler.handle);
         this.packetRegistry.register(PacketType.RoomCreate, CreateRoomHandler.handle);
+        this.packetRegistry.register(PacketType.RoomJoin, RoomJoinHandler.handle);
+        this.packetRegistry.register(PacketType.RoomLeave, RoomLeaveHandler.handle);
     }
 
     public serve() {

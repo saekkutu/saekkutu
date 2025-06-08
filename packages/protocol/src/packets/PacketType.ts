@@ -18,8 +18,8 @@ export enum PacketType {
 
     // Room
     RoomCreate,
-    // RoomJoin,
-    // RoomLeave,
+    RoomJoin,
+    RoomLeave,
     RoomInfoUpdate,
     RoomInfoRemove,
 }

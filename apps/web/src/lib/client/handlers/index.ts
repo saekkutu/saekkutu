@@ -5,3 +5,4 @@ export * from "./UserInfoUpdateHandler";
 export * from "./UserInfoRemoveHandler";
 export * from "./ChatBroadcastHandler";
 export * from "./RoomInfoUpdateHandler";
+export * from "./RoomInfoRemoveHandler";

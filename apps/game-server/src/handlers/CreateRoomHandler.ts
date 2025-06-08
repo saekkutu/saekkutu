@@ -19,15 +19,17 @@ export class CreateRoomHandler {
             return;
         }
 
-        const room = new Room(id, packet.title);
+        const room = new Room(id, packet.title, connection.user.id);
         connection.server.rooms.set(room.id, room);
 
         const infoUpdatePacket = new PacketRoomInfoUpdate();
         infoUpdatePacket.id = room.id;
         infoUpdatePacket.title = room.title;
-        infoUpdatePacket.owner = connection.user.id;
+        infoUpdatePacket.creator = room.creator;
+        infoUpdatePacket.users = room.users;
 
         for (const otherConnection of connection.server.connections.values()) {
+            if (!otherConnection.user) continue;
             otherConnection.send(PacketType.RoomInfoUpdate, infoUpdatePacket);
         }
     }

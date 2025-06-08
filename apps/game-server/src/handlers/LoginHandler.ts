@@ -36,6 +36,8 @@ export class LoginHandler {
             const roomInfoUpdatePacket = new PacketRoomInfoUpdate();
             roomInfoUpdatePacket.id = room.id;
             roomInfoUpdatePacket.title = room.title;
+            roomInfoUpdatePacket.creator = room.creator;
+            roomInfoUpdatePacket.users = room.users;
 
             connection.send(PacketType.RoomInfoUpdate, roomInfoUpdatePacket);
         }

@@ -54,6 +54,7 @@ export class Client {
         this.packetRegistry.register(PacketType.ChatBroadcast, Handlers.ChatBroadcastHandler.handle);
 
         this.packetRegistry.register(PacketType.RoomInfoUpdate, Handlers.RoomInfoUpdateHandler.handle);
+        this.packetRegistry.register(PacketType.RoomInfoRemove, Handlers.RoomInfoRemoveHandler.handle);
     }
 
     public send(type: PacketType, data: Packet) {
