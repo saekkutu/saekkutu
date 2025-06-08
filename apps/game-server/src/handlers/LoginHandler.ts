@@ -1,4 +1,4 @@
-import { PacketLogin, PacketReady, PacketType, PacketUserInfoUpdate } from "@saekkutu/protocol";
+import { PacketLogin, PacketReady, PacketRoomInfoUpdate, PacketType, PacketUserInfoUpdate } from "@saekkutu/protocol";
 import { Connection } from "../connection";
 import { User } from "../user";
 import { randomInt } from "crypto";
@@ -19,8 +19,7 @@ export class LoginHandler {
         updatePacket.id = connection.user.id;
         updatePacket.username = connection.user.name;
 
-        const otherConnections = Array.from(connection.server.connections.values());
-        for (const otherConnection of otherConnections) {
+        for (const otherConnection of Array.from(connection.server.connections.values())) {
             if (otherConnection.id === connection.id) continue;
             if (!otherConnection.user) continue;
 
@@ -31,6 +30,14 @@ export class LoginHandler {
             otherUpdatePacket.username = otherConnection.user.name;
 
             connection.send(PacketType.UserInfoUpdate, otherUpdatePacket);
+        }
+
+        for (const room of Array.from(connection.server.rooms.values())) {
+            const roomInfoUpdatePacket = new PacketRoomInfoUpdate();
+            roomInfoUpdatePacket.id = room.id;
+            roomInfoUpdatePacket.title = room.title;
+
+            connection.send(PacketType.RoomInfoUpdate, roomInfoUpdatePacket);
         }
     }
 }
