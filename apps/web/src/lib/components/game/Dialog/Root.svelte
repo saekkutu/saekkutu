@@ -13,7 +13,7 @@
     let offsetY = 0;
 
     const handleMouseDown = (e: MouseEvent) => {
-        if ((e.target as HTMLElement).classList.contains("close-button")) return;
+        if ((e.target as HTMLElement).tagName == "BUTTON") return;
 
         isDragging = true;
 
