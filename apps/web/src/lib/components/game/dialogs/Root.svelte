@@ -14,7 +14,10 @@
 
     const handleMouseDown = (e: MouseEvent) => {
         if ((e.target as HTMLElement).classList.contains("close-button")) return;
+
         isDragging = true;
+
+        e.preventDefault();
         offsetX = e.clientX - dialog.offsetLeft;
         offsetY = e.clientY - dialog.offsetTop;
     };

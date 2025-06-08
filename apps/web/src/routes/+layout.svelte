@@ -3,10 +3,10 @@
     import "../app.css";
 
     import * as MenuBar from "$lib/components/game/MenuBar";
+    import * as Dialog from "$lib/components/game/dialogs";
     import { dialogs } from "$lib/stores/dialogs";
     import { Client } from "$lib/client";
     import { AudioSource } from "$lib/utils";
-    import { CreateRoomDialog } from "$lib/components/game/dialogs";
 
     let { children } = $props();
 
@@ -27,5 +27,5 @@
 </div>
 
 {#if $dialogs.createRoom}
-    <CreateRoomDialog />
+    <Dialog.CreateRoom />
 {/if}

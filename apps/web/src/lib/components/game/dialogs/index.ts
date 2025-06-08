@@ -1,4 +1,4 @@
-import Dialog from "./Dialog.svelte";
-import CreateRoomDialog from "./CreateRoomDialog.svelte";
+import Root from "./Root.svelte";
+import CreateRoom from "./CreateRoom.svelte";
 
-export { Dialog, CreateRoomDialog };
+export { Root, CreateRoom };
