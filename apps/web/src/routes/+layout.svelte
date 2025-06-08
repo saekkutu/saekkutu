@@ -3,7 +3,7 @@
     import "../app.css";
 
     import * as MenuBar from "$lib/components/game/MenuBar";
-    import * as Dialog from "$lib/components/game/dialogs";
+    import * as Dialog from "$lib/components/game/Dialog";
     import { dialogs } from "$lib/stores/dialogs";
     import { Client } from "$lib/client";
     import { AudioSource } from "$lib/utils";
