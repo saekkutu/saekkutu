@@ -1,11 +1,11 @@
 import { Packet, PacketBuffer } from "../..";
 
 export class PacketRoomInfoUpdate implements Packet {
-    public id?: string;
+    public id?: number;
     public title?: string;
 
     public read(buffer: PacketBuffer): void {
-        this.id = buffer.readString();
+        this.id = buffer.readUint16();
         this.title = buffer.readString();
     }
 
@@ -13,7 +13,7 @@ export class PacketRoomInfoUpdate implements Packet {
         if (!this.id) throw new Error("Id is not set");
         if (!this.title) throw new Error("Title is not set");
 
-        buffer.writeString(this.id);
+        buffer.writeUint16(this.id);
         buffer.writeString(this.title);
     }
 }

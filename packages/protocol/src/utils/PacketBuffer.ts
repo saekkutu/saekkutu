@@ -42,6 +42,20 @@ export class PacketBuffer {
         this.buffer[this.offset++] = value;
     }
 
+    public readUint16(): number {
+        const value = (this.buffer[this.offset] << 8) | this.buffer[this.offset + 1];
+        this.offset += 2;
+        return value >>> 0;
+    }
+
+    public writeUint16(value: number) {
+        if (value < 0 || value > 0xFFFF) throw new Error("Value must be between 0 and 0xFFFF");
+
+        this.ensureCapacity(2);
+        this.buffer[this.offset++] = (value >> 8) & 0xFF;
+        this.buffer[this.offset++] = value & 0xFF;
+    }
+
     public readUint32(): number {
         const value = (this.buffer[this.offset] << 24) |
                      (this.buffer[this.offset + 1] << 16) |

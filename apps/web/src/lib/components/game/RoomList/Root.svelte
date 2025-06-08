@@ -14,7 +14,7 @@
 
     <div class="grid grid-cols-2 gap-2 overflow-y-auto">
         {#each $rooms as room}
-            <RoomList.Item id=1 title={room.title} />
+            <RoomList.Item id={room.id} title={room.title} />
         {/each}
     </div>
 </div>

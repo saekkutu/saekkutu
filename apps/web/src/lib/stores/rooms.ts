@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 export interface Room {
-    id: string;
+    id: number;
     title: string;
 }
 
@@ -16,7 +16,7 @@ export const addRoom = (room: Room) => {
     });
 };
 
-export const removeRoom = (id: string) => {
+export const removeRoom = (id: number) => {
     rooms.update(currentRooms => currentRooms.filter(r => r.id !== id));
 };
 

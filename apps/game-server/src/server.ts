@@ -15,9 +15,10 @@ export class Server {
     public wsServer?: Bun.Server;
     
     public readonly connections: Map<string, Connection> = new Map();
-    public readonly rooms: Map<string, Room> = new Map();
+    public readonly rooms: Map<number, Room> = new Map();
 
     private readonly packetRegistry: PacketRegistry<Connection> = new PacketRegistry();
+
 
     constructor(config: ServerConfig = { port: 3000, heartbeatInterval: 20000 }) {
         this.config = {
