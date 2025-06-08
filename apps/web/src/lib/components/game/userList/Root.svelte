@@ -20,37 +20,6 @@
     <div class="text-xs overflow-y-auto">
         {#each $users as user}
             <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
-            <Item>{user.username}</Item>
         {/each}
     </div>
 </div>
