@@ -57,6 +57,7 @@
                 rounded-full
                 border-none
                 bg-red-500 hover:bg-red-400
+                transition-colors duration-200 ease-in-out
                 cursor-default
                 m-1
             " onclick={() => {
